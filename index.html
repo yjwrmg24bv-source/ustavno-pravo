@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Уставно право">
+
+<link rel="manifest" href="manifest.json">
+
+<title>Уставно право</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --text: #17171a;
+    --muted: #74747c;
+    --border: #e6e6eb;
+    --purple: #5b5bd6;
+    --purple-light: #eeeeff;
+    --red: #e45757;
+    --blue: #4285d4;
+    --green: #36a269;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Arial,
+        sans-serif;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.app {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 22px 16px 40px;
+}
+
+header {
+    padding: 20px 4px 18px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.progress-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.05);
+    margin-bottom: 18px;
+}
+
+.progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.big-number {
+    font-size: 39px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.percent {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--purple);
+}
+
+.progress-bar {
+    height: 12px;
+    background: #e9e9ef;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 18px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--purple);
+    border-radius: inherit;
+    transition: width .25s ease;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin-top: 18px;
+}
+
+.stat {
+    background: #f7f7f9;
+    border-radius: 15px;
+    padding: 13px 8px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+.section {
+    background: var(--card);
+    border-radius: 22px;
+    padding: 19px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    cursor: pointer;
+    transition: transform .15s ease;
+}
+
+.section:active {
+    transform: scale(.985);
+}
+
+.section-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.section-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    flex-shrink: 0;
+}
+
+.red {
+    background: #ffecec;
+}
+
+.blue {
+    background: #eaf3ff;
+}
+
+.green {
+    background: #e8f8ef;
+}
+
+.section-info {
+    flex: 1;
+}
+
+.section-title {
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.section-count {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.section-percent {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.arrow {
+    font-size: 22px;
+    color: #aaa;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.back {
+    border: 0;
+    background: transparent;
+    padding: 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--purple);
+    cursor: pointer;
+}
+
+.page-header {
+    padding: 12px 3px 18px;
+}
+
+.page-header h2 {
+    margin: 7px 0 5px;
+    font-size: 27px;
+    letter-spacing: -.7px;
+}
+
+.page-subtitle {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.group-progress {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 17px;
+    margin-bottom: 12px;
+}
+
+.group-progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+}
+
+.group-progress-bar {
+    height: 9px;
+    background: #e9e9ef;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 11px;
+}
+
+.group-progress-fill {
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    transition: width .25s ease;
+}
+
+.filters {
+    display: flex;
+    background: #e9e9ef;
+    padding: 4px;
+    border-radius: 13px;
+    margin-bottom: 13px;
+}
+
+.filter {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    border-radius: 10px;
+    padding: 9px 5px;
+    font-size: 13px;
+    font-weight: 650;
+    color: #666;
+    cursor: pointer;
+}
+
+.filter.active {
+    background: white;
+    color: var(--text);
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+.question {
+    background: white;
+    border-radius: 19px;
+    margin-bottom: 9px;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    border: 1px solid var(--border);
+    transition: background .2s ease, border .2s ease;
+}
+
+.question.learned {
+    background: #f4f4ff;
+    border-color: #d8d8ff;
+}
+
+.checkbox {
+    width: 27px;
+    height: 27px;
+    min-width: 27px;
+    border-radius: 9px;
+    border: 2px solid #c9c9d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 17px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 1px;
+}
+
+.question.learned .checkbox {
+    background: var(--purple);
+    border-color: var(--purple);
+}
+
+.question-text {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.question-number {
+    font-weight: 800;
+    margin-right: 3px;
+}
+
+.reset {
+    width: 100%;
+    border: 0;
+    border-radius: 17px;
+    background: #ffe8e8;
+    color: #c33b3b;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 16px;
+    margin-top: 14px;
+    cursor: pointer;
+}
+
+.empty {
+    background: white;
+    border-radius: 18px;
+    padding: 30px 18px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 380px) {
+    .app {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .big-number {
+        font-size: 34px;
+    }
+
+    .filter {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div id="homePage" class="page active">
+
+        <header>
+            <h1>Уставно право</h1>
+            <div class="subtitle">
+                Праћење напретка у учењу
+            </div>
+        </header>
+
+        <div class="progress-card">
+
+            <div class="progress-top">
+                <div>
+                    <div class="big-number">
+                        <span id="totalLearned">0</span> / 72
+                    </div>
+                    <div class="subtitle">
+                        научено
+                    </div>
+                </div>
+
+                <div class="percent" id="totalPercent">
+                    0%
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div
+                    id="totalProgress"
+                    class="progress-fill">
+                </div>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <div
+                        id="statLearned"
+                        class="stat-number">
+                        0
+                    </div>
+                    <div class="stat-label">
+                        Научено
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div
+                        id="statRemaining"
+                        class="stat-number">
+                        72
+                    </div>
+                    <div class="stat-label">
+                        Остало
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div
+                        class="stat-number">
+                        72
+                    </div>
+                    <div class="stat-label">
+                        Укупно
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div
+            class="section"
+            onclick="openGroup(0)">
+
+            <div class="section-row">
+
+                <div class="section-icon red">
+                    🟥
+                </div>
+
+                <div class="section-info">
+
+                    <div class="section-title">
+                        Прво испитно питање
+                    </div>
+
+                    <div class="section-count">
+                        <span id="count0">0 / 23</span>
+                    </div>
+
+                </div>
+
+                <div
+                    class="section-percent"
+                    id="percent0">
+                    0%
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+        </div>
+
+        <div
+            class="section"
+            onclick="openGroup(1)">
+
+            <div class="section-row">
+
+                <div class="section-icon blue">
+                    🟦
+                </div>
+
+                <div class="section-info">
+
+                    <div class="section-title">
+                        Друго испитно питање
+                    </div>
+
+                    <div class="section-count">
+                        <span id="count1">0 / 22</span>
+                    </div>
+
+                </div>
+
+                <div
+                    class="section-percent"
+                    id="percent1">
+                    0%
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+        </div>
+
+        <div
+            class="section"
+            onclick="openGroup(2)">
+
+            <div class="section-row">
+
+                <div class="section-icon green">
+                    🟩
+                </div>
+
+                <div class="section-info">
+
+                    <div class="section-title">
+                        Треће испитно питање
+                    </div>
+
+                    <div class="section-count">
+                        <span id="count2">0 / 27</span>
+                    </div>
+
+                </div>
+
+                <div
+                    class="section-percent"
+                    id="percent2">
+                    0%
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+        </div>
+
+        <button
+            class="reset"
+            onclick="resetAll()">
+            Обриши сва штиклирана питања
+        </button>
+
+    </div>
+
+
+    <div id="groupPage" class="page">
+
+        <button
+            class="back"
+            onclick="goHome()">
+            ‹ Назад
+        </button>
+
+        <div class="page-header">
+            <h2 id="groupTitle"></h2>
+            <div
+                id="groupSubtitle"
+                class="page-subtitle">
+            </div>
+        </div>
+
+        <div class="group-progress">
+
+            <div class="group-progress-row">
+
+                <span id="groupCount">
+                    0 / 23 научено
+                </span>
+
+                <span id="groupPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="group-progress-bar">
+                <div
+                    id="groupProgressFill"
+                    class="group-progress-fill">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="filters">
+
+            <button
+                class="filter active"
+                data-filter="all"
+                onclick="setFilter('all')">
+                Сва питања
+            </button>
+
+            <button
+                class="filter"
+                data-filter="unlearned"
+                onclick="setFilter('unlearned')">
+                Ненаучена
+            </button>
+
+            <button
+                class="filter"
+                data-filter="learned"
+                onclick="setFilter('learned')">
+                Научена
+            </button>
+
+        </div>
+
+        <div id="questions"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const groups = [
+
+{
+    title: "Прво испитно питање",
+    total: 23,
+    color: "#e45757",
+    questions: [
+        "Појам и предмет уставног права",
+        "Извори уставног права",
+        "Појам устава",
+        "Уставотворна и ревизиона власт, забране промене устава и правне технике промене устава",
+        "Промена Устава Србије из 2006. године",
+        "Начела Устава Србије из 2006. године",
+        "Владавина права",
+        "Предисторија уставности и почеци савремене уставности (крајем XVIII и почетком XIX века)",
+        "Либерално-демократска уставност (половина XIX века до тридесетих година XX века) и „интернационализована“ уставност (од половине XX века)",
+        "Уставност Кнежевине Србије и Краљевине Србије",
+        "Уставност Прве (унитарне) Југославије (1918 – 1941)",
+        "Уставност федералне Југославије (1943 – 2006)",
+        "Повратак аутентичне српске уставности – Устав Србије из 1990. године",
+        "Појам суверености",
+        "Теорије о носиоцима суверености",
+        "Облици остваривања суверености",
+        "Референдум и народна иницијатива",
+        "Референдум и народна иницијатива у Републици Србији",
+        "Појам и обележја бирачког права",
+        "Евиденција бирача, изборне јединице и заштита бирачког права",
+        "Бирачко право у Републици Србији",
+        "Изборни системи. Изборни систем у Републици Србији",
+        "Појам и еволуција политичких странака. Политичке странке у уставном поретку Републике Србије"
+    ]
+},
+
+{
+    title: "Друго испитно питање",
+    total: 22,
+    color: "#4285d4",
+    questions: [
+        "Појам и еволуција парламента",
+        "Структура парламента",
+        "Функције парламента",
+        "Проглашење ратног и ванредног стања и мере које се предузимају у нередовном стању",
+        "Сазив, заседања и седнице парламента, парламентарна радна тела и парламентарни функционери",
+        "Распуштање парламента и превремени престанак мандата парламентарца",
+        "Природа парламентарног мандата",
+        "Парламентарни имунитети и парламентарни инкомпатибилитет",
+        "Појам и еволуција шефа државе",
+        "Избор председника републике",
+        "Овлашћења и акти шефа државе",
+        "Одговорност шефа државе",
+        "Појам и еволуција владе",
+        "Избор и састав владе",
+        "Овлашћења и акти владе",
+        "Одговорност владе и министарска одговорност",
+        "Начело поделе власти и начело јединства власти",
+        "Парламентарни систем",
+        "Председнички систем",
+        "Полупредседнички систем",
+        "Системи који почивају на начелу јединства власти",
+        "Систем власти у Републици Србији"
+    ]
+},
+
+{
+    title: "Треће испитно питање",
+    total: 27,
+    color: "#36a269",
+    questions: [
+        "Појам и значај судске власти и организација судова",
+        "Уставна начела о судовима",
+        "Избор судија и престанак судијске функције. Високи савет судства",
+        "Појам и обележја јавног тужилаштва",
+        "Јавно тужилаштво у Републици Србији. Високи савет тужилаштва",
+        "Појам и еволуција уставног судства",
+        "Избор и састав уставног суда уопште. Избор и састав Уставног суда Србије",
+        "Нормативна контрола права",
+        "Решавање спорова о надлежности и одлучивање о оптужбама против председника Републике, решавање изборних спорова и забрана рада политичких странака (и других удружења)",
+        "Уставна жалба",
+        "Појам и облици територијалне децентрализације",
+        "Појам и основна обележја локалне самоуправе",
+        "Јединице локалне самоуправе и надлежности локалне самоуправе у Републици Србији",
+        "Правни акти и органи јединица локалне самоуправе у Републици Србији. Непосредно учешће грађана у остваривању локалне самоуправе",
+        "Надзор над локалном самоуправом и заштита локалне самоуправе у Републици Србији",
+        "Појам и обележја територијалне аутономије",
+        "Покрајинска аутономија у Републици Србији. Специфична обележја правног положаја Косова и Метохије",
+        "Појам и еволуција федерализма",
+        "Заједничка питања и обележја савремене федерације – сувереност у федерацији и расподела надлежности у федерацији",
+        "Положај федералних јединица – право на самоорганизовање федералних јединица, право на сецесију, право федералних јединица на учешће у вршењу федералне власти",
+        "Појам, еволуција и поделе људских права",
+        "Начела о људским правима. Дужности грађана и права странаца у Уставу Србије из 2006. године",
+        "Национални и међународноправни механизми заштите људских права",
+        "Лична права у Уставу Србије из 2006. године",
+        "Политичка права у Уставу Србије из 2006. године",
+        "Економска, социјална и културна права у Уставу Србије из 2006. године",
+        "Права припадника националних мањина уопште и у Уставу Србије из 2006. године"
+    ]
+}
+
+];
+
+
+let learned =
+    JSON.parse(
+        localStorage.getItem("ustavnoPravoLearned") || "[]"
+    );
+
+let currentGroup = 0;
+let currentFilter = "all";
+
+
+function save() {
+
+    localStorage.setItem(
+        "ustavnoPravoLearned",
+        JSON.stringify(learned)
+    );
+
+}
+
+
+function isLearned(id) {
+
+    return learned.includes(id);
+
+}
+
+
+function toggleQuestion(id) {
+
+    if (isLearned(id)) {
+
+        learned = learned.filter(
+            x => x !== id
+        );
+
+    } else {
+
+        learned.push(id);
+
+    }
+
+    save();
+
+    updateAll();
+
+}
+
+
+function updateAll() {
+
+    updateHome();
+
+    if (
+        document
+            .getElementById("groupPage")
+            .classList
+            .contains("active")
+    ) {
+
+        renderQuestions();
+
+    }
+
+}
+
+
+function updateHome() {
+
+    let totalLearned = learned.length;
+
+    let percent =
+        Math.round(
+            totalLearned / 72 * 100
+        );
+
+    document
+        .getElementById("totalLearned")
+        .textContent = totalLearned;
+
+    document
+        .getElementById("totalPercent")
+        .textContent = percent + "%";
+
+    document
+        .getElementById("totalProgress")
+        .style.width = percent + "%";
+
+    document
+        .getElementById("statLearned")
+        .textContent = totalLearned;
+
+    document
+        .getElementById("statRemaining")
+        .textContent = 72 - totalLearned;
+
+
+    groups.forEach(
+        (group, groupIndex) => {
+
+            let count = 0;
+
+            group.questions.forEach(
+                (_, questionIndex) => {
+
+                    let id =
+                        groupIndex +
+                        "-" +
+                        questionIndex;
+
+                    if (isLearned(id)) {
+                        count++;
+                    }
+
+                }
+            );
+
+            let percent =
+                Math.round(
+                    count / group.total * 100
+                );
+
+            document
+                .getElementById(
+                    "count" + groupIndex
+                )
+                .textContent =
+                    count +
+                    " / " +
+                    group.total;
+
+            document
+                .getElementById(
+                    "percent" + groupIndex
+                )
+                .textContent =
+                    percent + "%";
+
+        }
+    );
+
+}
+
+
+function openGroup(index) {
+
+    currentGroup = index;
+    currentFilter = "all";
+
+    document
+        .getElementById("homePage")
+        .classList
+        .remove("active");
+
+    document
+        .getElementById("groupPage")
+        .classList
+        .add("active");
+
+    let group = groups[index];
+
+    document
+        .getElementById("groupTitle")
+        .textContent = group.title;
+
+    document
+        .getElementById("groupSubtitle")
+        .textContent =
+        group.total +
+        " питања";
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(button => {
+
+            button
+                .classList
+                .remove("active");
+
+        });
+
+    document
+        .querySelector(
+            '[data-filter="all"]'
+        )
+        .classList
+        .add("active");
+
+    renderQuestions();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
+
+}
+
+
+function goHome() {
+
+    document
+        .getElementById("groupPage")
+        .classList
+        .remove("active");
+
+    document
+        .getElementById("homePage")
+        .classList
+        .add("active");
+
+    updateHome();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
+
+}
+
+
+function setFilter(filter) {
+
+    currentFilter = filter;
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(button => {
+
+            button
+                .classList
+                .toggle(
+                    "active",
+                    button.dataset.filter === filter
+                );
+
+        });
+
+    renderQuestions();
+
+}
+
+
+function renderQuestions() {
+
+    let group = groups[currentGroup];
+
+    let learnedCount = 0;
+
+    group.questions.forEach(
+        (_, questionIndex) => {
+
+            let id =
+                currentGroup +
+                "-" +
+                questionIndex;
+
+            if (isLearned(id)) {
+                learnedCount++;
+            }
+
+        }
+    );
+
+    let percent =
+        Math.round(
+            learnedCount /
+            group.total *
+            100
+        );
+
+    document
+        .getElementById("groupCount")
+        .textContent =
+            learnedCount +
+            " / " +
+            group.total +
+            " научено";
+
+    document
+        .getElementById("groupPercent")
+        .textContent =
+            percent + "%";
+
+    document
+        .getElementById("groupProgressFill")
+        .style.width =
+            percent + "%";
+
+    document
+        .getElementById("groupProgressFill")
+        .style.background =
+            group.color;
+
+
+    let container =
+        document.getElementById("questions");
+
+    container.innerHTML = "";
+
+
+    let visible = 0;
+
+    group.questions.forEach(
+        (question, questionIndex) => {
+
+            let id =
+                currentGroup +
+                "-" +
+                questionIndex;
+
+            let learnedState =
+                isLearned(id);
+
+
+            if (
+                currentFilter === "learned" &&
+                !learnedState
+            ) {
+                return;
+            }
+
+            if (
+                currentFilter === "unlearned" &&
+                learnedState
+            ) {
+                return;
+            }
+
+
+            visible++;
+
+
+            let item =
+                document.createElement("div");
+
+            item.className =
+                "question" +
+                (
+                    learnedState
+                        ? " learned"
+                        : ""
+                );
+
+
+            let checkbox =
+                document.createElement("div");
+
+            checkbox.className =
+                "checkbox";
+
+            checkbox.textContent =
+                learnedState
+                    ? "✓"
+                    : "";
+
+
+            checkbox.onclick =
+                function(event) {
+
+                    event.stopPropagation();
+
+                    toggleQuestion(id);
+
+                };
+
+
+            let text =
+                document.createElement("div");
+
+            text.className =
+                "question-text";
+
+            text.innerHTML =
+                '<span class="question-number">' +
+                (questionIndex + 1) +
+                '.</span> ' +
+                escapeHTML(question);
+
+
+            item.appendChild(checkbox);
+            item.appendChild(text);
+
+
+            item.onclick =
+                function() {
+
+                    toggleQuestion(id);
+
+                };
+
+
+            container.appendChild(item);
+
+        }
+    );
+
+
+    if (visible === 0) {
+
+        let empty =
+            document.createElement("div");
+
+        empty.className = "empty";
+
+        empty.textContent =
+            currentFilter === "learned"
+                ? "Још немаш научена питања."
+                : "Сва питања су научена! 🎉";
+
+        container.appendChild(empty);
+
+    }
+
+}
+
+
+function escapeHTML(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function resetAll() {
+
+    let confirmed =
+        confirm(
+            "Да ли стварно желиш да обришеш сва штиклирана питања?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    learned = [];
+
+    save();
+
+    updateAll();
+
+}
+
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator
+                .serviceWorker
+                .register(
+                    "service-worker.js"
+                )
+                .catch(
+                    function(error) {
+
+                        console.log(
+                            "Service Worker није регистрован:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+
+updateHome();
+
+</script>
+
+</body>
+</html>
