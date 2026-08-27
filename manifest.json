@@ -1,0 +1,20 @@
+{
+  "name": "Уставно право — праћење учења",
+  "short_name": "Уставно право",
+  "description": "Апликација за праћење напретка у учењу 72 питања из Уставног права.",
+  "lang": "sr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
